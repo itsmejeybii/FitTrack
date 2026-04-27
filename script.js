@@ -1132,16 +1132,16 @@ function calculateBMI() {
         const heightInMeters = height / 100;
         const bmi = weight / (heightInMeters * heightInMeters);
 
-        const newEntry = {
-            id: Date.now(),
-            date: new Date().toLocaleDateString(),
-            weight: weight
-        };
+       const newEntry = {
+           id: Date.now(),
+           date: new Date().toISOString(),
+           weight: weight
+};
 
-        const updatedWeightHistory = [
+       const updatedWeightHistory = [
             ...userData.weightHistory,
-            newEntry
-        ].slice(-10);
+              newEntry
+            ].slice(-10);
 
         updateData({
             ...userData,
@@ -1149,7 +1149,7 @@ function calculateBMI() {
             height: height,
             currentBMI: bmi,
             weightHistory: updatedWeightHistory
-        });
+    });
     }
 }
 
