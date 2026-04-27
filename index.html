@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTrack Pro - Fitness Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <div class="login-icon">💪</div>
+            <h1>FitTrack Pro</h1>
+            <p class="subtitle">Track your fitness journey</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="main-app" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon">💪</div>
+                <span class="logo-text">FitTrack Pro</span>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-page="dashboard">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-page="calorie-tracker">
+                    <span class="nav-icon">🍽️</span>
+                    <span>Calorie Tracker</span>
+                </button>
+                <button class="nav-item" data-page="workout-planner">
+                    <span class="nav-icon">🏋️</span>
+                    <span>Workout Planner</span>
+                </button>
+                <button class="nav-item" data-page="bmi-calculator">
+                    <span class="nav-icon">🧮</span>
+                    <span>BMI Calculator</span>
+                </button>
+                <button class="nav-item" data-page="progress-tracker">
+                    <span class="nav-icon">📈</span>
+                    <span>Progress Tracker</span>
+                </button>
+                <button class="nav-item" data-page="goals">
+                    <span class="nav-icon">🎯</span>
+                    <span>Goals</span>
+                </button>
+                <button class="nav-item" data-page="water-tracker">
+                    <span class="nav-icon">💧</span>
+                    <span>Water Tracker</span>
+                </button>
+                <button class="nav-item" data-page="profile">
+                    <span class="nav-icon">👤</span>
+                    <span>Profile</span>
+                </button>
+                <button class="nav-item" data-page="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Settings</span>
+                </button>
+            </nav>
+            <div class="sidebar-motivation">
+                <div class="motivation-card">
+                    <div class="motivation-header">
+                        <span>✨</span>
+                        <h3>Motivation</h3>
+                    </div>
+                    <p id="motivationQuote"></p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard" class="page active">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Welcome back! Here's your fitness overview</p>
+                </div>
+                <div class="dashboard-grid">
+                    <!-- Daily Calories -->
+                    <div class="card">
+                        <div class="card-header-icon">
+                            <div class="icon-circle orange">🔥</div>
+                            <div>
+                                <h3>Daily Calories</h3>
+                                <p class="text-sm">Today's intake</p>
+                            </div>
+                        </div>
+                        <div class="card-value">1,850 / 2,200</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill orange" style="width: 84%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Workouts -->
+                    <div class="card">
+                        <div class="card-header-icon">
+                            <div class="icon-circle blue">🏋️</div>
+                            <div>
+                                <h3>Workouts</h3>
+                                <p class="text-sm">This week</p>
+                            </div>
+                        </div>
+                        <div class="card-value">5 / 6</div>
+                        <p class="text-sm">320 minutes total</p>
+                    </div>
+
+                    <!-- Current BMI -->
+                    <div class="card">
+                        <div class="card-header-icon">
+                            <div class="icon-circle green">💓</div>
+                            <div>
+                                <h3>Current BMI</h3>
+                                <p class="text-sm">Body Mass Index</p>
+                            </div>
+                        </div>
+                        <div class="card-value">22.4</div>
+                        <p class="text-sm success">Normal Weight</p>
+                    </div>
+
+                    <!-- Weight -->
+                    <div class="card">
+                        <div class="card-header-icon">
+                            <div class="icon-circle purple">⚖️</div>
+                            <div>
+                                <h3>Weight</h3>
+                                <p class="text-sm">Current weight</p>
+                            </div>
+                        </div>
+                        <div class="card-value">82.8 kg</div>
+                        <p class="text-sm purple">-2.2 kg this month</p>
+                    </div>
+
+                    <!-- Calorie Tracker -->
+                    <div class="card">
+                        <div class="card-header-space">
+                            <h3>Calorie Tracker</h3>
+                            <p class="text-sm">Track your meals</p>
+                        </div>
+                        <div class="list-items">
+                            <div class="list-item">
+                                <span>Breakfast</span>
+                                <span>450 cal</span>
+                            </div>
+                            <div class="list-item">
+                                <span>Lunch</span>
+                                <span>680 cal</span>
+                            </div>
+                            <div class="list-item">
+                                <span>Dinner</span>
+                                <span>720 cal</span>
+                            </div>
+                        </div>
+                        <button class="btn-white" onclick="navigateTo('calorie-tracker')">
+                            👁️ View All
+                        </button>
+                    </div>
+
+                    <!-- Workout Planner -->
+                    <div class="card">
+                        <div class="card-header-space">
+                            <h3>Workout Planner</h3>
+                            <p class="text-sm">Your exercises</p>
+                        </div>
+                        <div class="list-items">
+                            <div class="list-item">
+                                <span>Push-ups</span>
+                                <span>3 sets</span>
+                            </div>
+                            <div class="list-item">
+                                <span>Running</span>
+                                <span>30 min</span>
+                            </div>
+                            <div class="list-item">
+                                <span>Squats</span>
+                                <span>4 sets</span>
+                            </div>
+                        </div>
+                        <button class="btn-white" onclick="navigateTo('workout-planner')">
+                            👁️ View All
+                        </button>
+                    </div>
+
+                    <!-- BMI Calculator -->
+                    <div class="card card-wide">
+                        <h3>BMI Calculator</h3>
+                        <div class="bmi-info">
+                            <div>
+                                <p class="text-sm">Weight: 82.8 kg</p>
+                                <p class="text-sm">Height: 175 cm</p>
+                            </div>
+                            <div>
+                                <div class="card-value-sm">22.4</div>
+                                <p class="text-sm success">Normal Weight</p>
+                            </div>
+                        </div>
+                        <div class="bmi-bar-chart">
+                            <div class="bmi-bar-item">
+                                <div class="bmi-bar blue" style="width: 60px"></div>
+                                <span class="text-xs">Underweight</span>
+                            </div>
+                            <div class="bmi-bar-item">
+                                <div class="bmi-bar green" style="width: 80px"></div>
+                                <span class="text-xs">Normal</span>
+                            </div>
+                            <div class="bmi-bar-item">
+                                <div class="bmi-bar yellow" style="width: 70px"></div>
+                                <span class="text-xs">Overweight</span>
+                            </div>
+                            <div class="bmi-bar-item">
+                                <div class="bmi-bar red" style="width: 90px"></div>
+                                <span class="text-xs">Obese</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weight Progress -->
+                    <div class="card card-full">
+                        <h3>Weight Progress</h3>
+                        <canvas id="weightChart"></canvas>
+                    </div>
+
+                    <!-- Quick Tips -->
+                    <div class="card card-wide">
+                        <div class="tips-header">
+                            <span>💡</span>
+                            <h3>Quick Tips</h3>
+                        </div>
+                        <ul class="tips-list">
+                            <li>Drink water before meals to help control appetite</li>
+                            <li>Get 7-9 hours of sleep for optimal recovery</li>
+                            <li>Include protein in every meal to maintain muscle mass</li>
+                            <li>Take the stairs instead of the elevator</li>
+                        </ul>
+                    </div>
+
+                    <!-- Water Tracker -->
+                    <div class="card">
+                        <div class="card-header-icon">
+                            <span style="font-size: 24px">💧</span>
+                            <h3>Water Tracker</h3>
+                        </div>
+                        <div class="card-value-sm">4 / 8 glasses</div>
+                        <div class="water-grid">
+                            <div class="water-glass filled"></div>
+                            <div class="water-glass filled"></div>
+                            <div class="water-glass filled"></div>
+                            <div class="water-glass filled"></div>
+                            <div class="water-glass"></div>
+                            <div class="water-glass"></div>
+                            <div class="water-glass"></div>
+                            <div class="water-glass"></div>
+                        </div>
+                        <button class="btn-blue" onclick="addWaterGlass()">
+                            ➕ Add Glass
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calorie Tracker Page -->
+            <div id="calorie-tracker" class="page">
+                <div class="page-header">
+                    <h1>Calorie Tracker</h1>
+                    <p>Track your daily food intake</p>
+                </div>
+
+                <div class="card mb-20">
+                    <div class="calorie-summary">
+                        <div>
+                            <p class="text-sm">Total Calories Today</p>
+                            <div class="card-value">1,850 / 2,200</div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm">Remaining</p>
+                            <div class="card-value-md success">350</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill orange" style="width: 84%"></div>
+                    </div>
+                </div>
+
+                <div class="card mb-20">
+                    <h2>Add Food</h2>
+                    <div class="form-group">
+                        <label>Select Meal</label>
+                        <select id="mealSelect">
+                            <option>Breakfast</option>
+                            <option>Lunch</option>
+                            <option>Dinner</option>
+                            <option>Snack</option>
+                        </select>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn-primary" onclick="showManualInput()">Manual Input</button>
+                        <button class="btn-secondary" onclick="showFoodList()">Choose Food</button>
+                    </div>
+
+                    <div id="manualInputForm" class="hidden mt-20">
+                        <input type="text" id="foodName" placeholder="Food name" class="mb-10">
+                        <input type="number" id="foodCalories" placeholder="Calories" class="mb-10">
+                        <button class="btn-primary" onclick="addFood()">➕ Add Food</button>
+                    </div>
+
+                    <div id="foodListContainer" class="hidden mt-20">
+                        <input type="text" id="foodSearch" placeholder="🔍 Search foods..." class="mb-10" oninput="filterFoods()">
+                        <div id="foodList" class="food-list"></div>
+                    </div>
+                </div>
+
+                <div id="foodLogContainer"></div>
+            </div>
+
+            <!-- Workout Planner Page -->
+            <div id="workout-planner" class="page">
+                <div class="page-header">
+                    <h1>Workout Planner</h1>
+                    <p>Track your exercises and activities</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="card">
+                        <p class="text-sm">Total Workouts</p>
+                        <div class="card-value" id="totalWorkouts">3</div>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm">Total Duration</p>
+                        <div class="card-value" id="totalDuration">135 min</div>
+                    </div>
+                </div>
+
+                <div class="card mb-20">
+                    <div class="card-header-space">
+                        <h2>Add Workout</h2>
+                        <button class="btn-primary" onclick="toggleWorkoutForm()">➕ Add</button>
+                    </div>
+                    <div id="workoutForm" class="hidden mt-20">
+                        <div class="form-group">
+                            <label>Workout Name</label>
+                            <input type="text" id="workoutName" placeholder="e.g., Running, Swimming, Cycling">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Duration (minutes)</label>
+                                <input type="number" id="workoutDuration" placeholder="30">
+                            </div>
+                            <div class="form-group">
+                                <label>Calories Burned</label>
+                                <input type="number" id="workoutCalories" placeholder="250">
+                            </div>
+                        </div>
+                        <button class="btn-primary" onclick="addWorkout()">Add Workout</button>
+                    </div>
+                </div>
+
+                <div class="card mb-20">
+                    <div class="calorie-burned">
+                        <p class="text-sm">Calories Burned Today</p>
+                        <div class="card-value-md orange" id="caloriesBurned">730</div>
+                    </div>
+                </div>
+
+                <h2 class="mb-10">Recent Workouts</h2>
+                <div id="workoutList"></div>
+            </div>
+
+            <!-- BMI Calculator Page -->
+            <div id="bmi-calculator" class="page">
+                <div class="page-header">
+                    <h1>BMI Calculator</h1>
+                    <p>Calculate your Body Mass Index</p>
+                </div>
+
+                <div class="card mb-20">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Weight (kg)</label>
+                            <input type="number" id="bmiWeight" value="82.8" placeholder="Enter weight">
+                        </div>
+                        <div class="form-group">
+                            <label>Height (cm)</label>
+                            <input type="number" id="bmiHeight" value="175" placeholder="Enter height">
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="calculateBMI()">🧮 Calculate</button>
+                </div>
+
+                <div id="bmiResult">
+                    <div class="card mb-20">
+                        <div class="bmi-result-display">
+                            <p class="text-sm">Your BMI</p>
+                            <div class="bmi-value" id="bmiValue">22.4</div>
+                            <p class="bmi-category success" id="bmiCategory">Normal Weight</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2 class="mb-20">BMI Categories</h2>
+                        <div class="bmi-scale">
+                            <div class="bmi-scale-bar"></div>
+                            <div class="bmi-pointer" id="bmiPointer" style="left: 45%">
+                                <div class="bmi-pointer-value">22.4</div>
+                            </div>
+                        </div>
+                        <div class="bmi-categories">
+                            <div class="bmi-category-item">
+                                <div class="category-color blue"></div>
+                                <span>Underweight</span>
+                                <span class="text-sm">BMI &lt; 18.5</span>
+                            </div>
+                            <div class="bmi-category-item">
+                                <div class="category-color green"></div>
+                                <span>Normal Weight</span>
+                                <span class="text-sm">BMI 18.5 - 24.9</span>
+                            </div>
+                            <div class="bmi-category-item">
+                                <div class="category-color yellow"></div>
+                                <span>Overweight</span>
+                                <span class="text-sm">BMI 25 - 29.9</span>
+                            </div>
+                            <div class="bmi-category-item">
+                                <div class="category-color red"></div>
+                                <span>Obese</span>
+                                <span class="text-sm">BMI ≥ 30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Tracker Page -->
+            <div id="progress-tracker" class="page">
+                <div class="page-header">
+                    <h1>Progress Tracker</h1>
+                    <p>Monitor your fitness journey</p>
+                </div>
+
+                <div class="stats-grid-3">
+                    <div class="card">
+                        <p class="text-sm">Weight Lost</p>
+                        <div class="card-value">2.2 kg</div>
+                        <p class="text-sm success">↓ 2.6% from start</p>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm">Workouts Completed</p>
+                        <div class="card-value">28</div>
+                        <p class="text-sm blue">This month</p>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm">Avg Calories</p>
+                        <div class="card-value">2,150</div>
+                        <p class="text-sm orange">Per day</p>
+                    </div>
+                </div>
+
+                <div class="card mb-20">
+                    <h2 class="mb-20">Weight Progress</h2>
+                    <canvas id="progressWeightChart"></canvas>
+                </div>
+
+                <div class="card-grid-2">
+                    <div class="card">
+                        <h3 class="mb-20">Weekly Workouts</h3>
+                        <canvas id="weeklyWorkoutsChart"></canvas>
+                    </div>
+                    <div class="card">
+                        <h3 class="mb-20">Daily Calorie Intake</h3>
+                        <canvas id="calorieIntakeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card mt-20">
+                    <h2 class="mb-20">Monthly Summary</h2>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <p class="text-sm">Days Active</p>
+                            <div class="card-value-md">26 / 30</div>
+                        </div>
+                        <div class="summary-item">
+                            <p class="text-sm">Total Calories</p>
+                            <div class="card-value-md">64,500</div>
+                        </div>
+                        <div class="summary-item">
+                            <p class="text-sm">Calories Burned</p>
+                            <div class="card-value-md">8,200</div>
+                        </div>
+                        <div class="summary-item">
+                            <p class="text-sm">Workout Minutes</p>
+                            <div class="card-value-md">1,240</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Goals Page -->
+            <div id="goals" class="page">
+                <div class="page-header">
+                    <h1>Goals</h1>
+                    <p>Set and track your fitness goals</p>
+                </div>
+
+                <div class="stats-grid-3">
+                    <div class="card">
+                        <p class="text-sm">Total Goals</p>
+                        <div class="card-value" id="totalGoals">3</div>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm">Completed</p>
+                        <div class="card-value success" id="completedGoals">0</div>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm">In Progress</p>
+                        <div class="card-value blue" id="inProgressGoals">3</div>
+                    </div>
+                </div>
+
+                <div class="card mb-20">
+                    <div class="card-header-space">
+                        <h2>Add New Goal</h2>
+                        <button class="btn-primary" onclick="toggleGoalForm()">➕ Add Goal</button>
+                    </div>
+                    <div id="goalForm" class="hidden mt-20">
+                        <div class="form-group">
+                            <label>Goal Title</label>
+                            <input type="text" id="goalTitle" placeholder="e.g., Lose 5kg">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Target Value</label>
+                                <input type="text" id="goalTarget" placeholder="5">
+                            </div>
+                            <div class="form-group">
+                                <label>Current Value</label>
+                                <input type="text" id="goalCurrent" placeholder="2.2">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline</label>
+                            <input type="date" id="goalDeadline">
+                        </div>
+                        <button class="btn-primary" onclick="addGoal()">Create Goal</button>
+                    </div>
+                </div>
+
+                <h2 class="mb-10">Your Goals</h2>
+                <div id="goalsList"></div>
+            </div>
+
+            <!-- Water Tracker Page -->
+            <div id="water-tracker" class="page">
+                <div class="page-header">
+                    <h1>Water Tracker</h1>
+                    <p>Track your daily water intake</p>
+                </div>
+
+                <div class="card mb-20">
+                    <div class="water-tracker-display">
+                        <div class="water-icon-large">💧</div>
+                        <div class="water-value" id="waterCount">4 / 8</div>
+                        <p class="text-sm">Glasses today</p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill blue" id="waterProgress" style="width: 50%"></div>
+                    </div>
+                    <div class="water-buttons">
+                        <button class="btn-round" onclick="removeWater()">➖</button>
+                        <button class="btn-round blue" onclick="addWater()">➕</button>
+                    </div>
+                    <div class="water-glasses-grid" id="waterGlasses"></div>
+                </div>
+
+                <div class="card mb-20">
+                    <h3 class="mb-20">Daily Goal</h3>
+                    <div class="slider-container">
+                        <input type="range" id="waterGoal" min="4" max="16" value="8" oninput="updateWaterGoal()">
+                        <span class="slider-value" id="waterGoalValue">8</span>
+                    </div>
+                    <p class="text-sm mt-10">Recommended: 8 glasses (2 liters) per day</p>
+                </div>
+
+                <div class="card">
+                    <h3 class="mb-20">History</h3>
+                    <div id="waterHistory"></div>
+                </div>
+
+                <div class="tips-box mt-20">
+                    <h3 class="tips-box-title">💧 Hydration Tips</h3>
+                    <ul class="tips-list">
+                        <li>Drink a glass of water when you wake up</li>
+                        <li>Keep a water bottle with you throughout the day</li>
+                        <li>Drink water before, during, and after exercise</li>
+                        <li>Set reminders to drink water regularly</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div id="profile" class="page">
+                <div class="page-header">
+                    <h1>Profile</h1>
+                    <p>Manage your personal information</p>
+                </div>
+
+                <div class="card mb-20">
+                    <div class="profile-header">
+                        <div class="profile-avatar">👤</div>
+                        <div>
+                            <h2>John Doe</h2>
+                            <p class="text-sm">john.doe@example.com</p>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" value="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" value="john.doe@example.com">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" value="+1 234 567 8900">
+                        </div>
+                        <div class="form-group">
+                            <label>Birthdate</label>
+                            <input type="date" value="1990-01-15">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" value="New York, USA">
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-20">
+                    <h2 class="mb-20">Fitness Information</h2>
+                    <div class="form-row-3">
+                        <div class="form-group">
+                            <label>Height (cm)</label>
+                            <input type="number" value="175">
+                        </div>
+                        <div class="form-group">
+                            <label>Current Weight (kg)</label>
+                            <input type="number" value="82.8">
+                        </div>
+                        <div class="form-group">
+                            <label>Target Weight (kg)</label>
+                            <input type="number" value="80">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="alert('Profile saved successfully!')">
+                    💾 Save Changes
+                </button>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="settings" class="page">
+                <div class="page-header">
+                    <h1>Settings</h1>
+                    <p>Manage your app preferences</p>
+                </div>
+
+                <div class="card mb-20">
+                    <h2 class="mb-20">Notifications</h2>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-icon">🔔</span>
+                            <div>
+                                <h4>Workout Reminders</h4>
+                                <p class="text-sm">Get notified about your workouts</p>
+                            </div>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-icon">🔔</span>
+                            <div>
+                                <h4>Water Reminders</h4>
+                                <p class="text-sm">Stay hydrated throughout the day</p>
+                            </div>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="card mb-20">
+                    <h2 class="mb-20">Preferences</h2>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-icon">🌙</span>
+                            <div>
+                                <h4>Dark Mode</h4>
+                                <p class="text-sm">Currently enabled</p>
+                            </div>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-icon">🌍</span>
+                            <div>
+                                <h4>Units</h4>
+                                <p class="text-sm">Metric (kg, cm)</p>
+                            </div>
+                        </div>
+                        <select class="setting-select">
+                            <option>Metric</option>
+                            <option>Imperial</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="card mb-20">
+                    <h2 class="mb-20">Data Management</h2>
+                    <button class="btn-secondary" onclick="resetData()">
+                        🔄 Reset All Data
+                    </button>
+                    <p class="text-sm text-center mt-10">
+                        This will delete all your progress and cannot be undone
+                    </p>
+                </div>
+
+                <div class="card mb-20">
+                    <h2 class="mb-20">Account</h2>
+                    <button class="btn-danger" onclick="logout()">
+                        🚪 Logout
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h2 class="mb-10">About</h2>
+                    <p class="text-sm">FitTrack Pro v1.0.0</p>
+                    <p class="text-sm">© 2026 FitTrack Pro. All rights reserved.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
