@@ -46,13 +46,11 @@ const AppData = {
     }
 };
 
-// App State
 let isLoggedIn = false;
 let currentPage = 'dashboard';
 let userData = AppData.init();
 let charts = {};
 
-// Common Foods
 const commonFoods = [
     { name: 'Apple', calories: 95 },
     { name: 'Banana', calories: 105 },
@@ -66,7 +64,6 @@ const commonFoods = [
     { name: 'Pasta (1 cup)', calories: 221 },
 ];
 
-// Common Workouts
 const commonWorkouts = [
     { name: 'Running (30 min)', calories: 300 },
     { name: 'Cycling (30 min)', calories: 250 },
@@ -80,7 +77,6 @@ const commonWorkouts = [
     { name: 'Dancing (30 min)', calories: 220 },
 ];
 
-// Motivational Quotes
 const motivationalQuotes = [
     "Your only limit is you.",
     "Push yourself, because no one else is going to do it for you.",
@@ -92,7 +88,6 @@ const motivationalQuotes = [
     "The only bad workout is the one that didn't happen."
 ];
 
-// Tips
 const tips = [
     "Drink at least 8 glasses of water daily",
     "Get 7-9 hours of sleep each night",
@@ -101,13 +96,11 @@ const tips = [
     "Add more vegetables to your meals"
 ];
 
-// Navigation
 function navigateTo(page) {
     currentPage = page;
     render();
 }
 
-// Login
 function handleLogin(e) {
     e.preventDefault();
     const username = document.getElementById('login-username').value;
@@ -125,7 +118,6 @@ function handleLogout() {
     render();
 }
 
-// Data Updates
 function updateData(newData) {
     userData = newData;
     AppData.save(userData);
@@ -139,7 +131,6 @@ function resetData() {
     }
 }
 
-// BMI Helper
 function getBMICategory(bmi) {
     if (bmi < 18.5) return { category: 'Underweight', color: '#60a5fa', description: 'You may need to gain weight' };
     if (bmi < 25) return { category: 'Normal', color: '#34d399', description: 'You have a healthy weight' };
@@ -147,12 +138,10 @@ function getBMICategory(bmi) {
     return { category: 'Obese', color: '#f87171', description: 'Consult a healthcare provider' };
 }
 
-// Chart Helper
 function createChart(canvasId, type, data, options) {
     const ctx = document.getElementById(canvasId);
     if (!ctx) return;
     
-    // Destroy existing chart
     if (charts[canvasId]) {
         charts[canvasId].destroy();
     }
@@ -174,7 +163,6 @@ function createChart(canvasId, type, data, options) {
     });
 }
 
-// Render Functions
 function renderLogin() {
     return `
         <div class="login-container">
@@ -1046,7 +1034,6 @@ function renderSettings() {
     `;
 }
 
-// Event Handlers
 function addManualFood() {
     const name = document.getElementById('manual-food').value;
     const calories = parseInt(document.getElementById('manual-calories').value);
@@ -1145,12 +1132,24 @@ function calculateBMI() {
     if (weight > 0 && height > 0) {
         const heightInMeters = height / 100;
         const bmi = weight / (heightInMeters * heightInMeters);
-        
+
+        const newEntry = {
+            id: Date.now(),
+            date: new Date().toLocaleDateString(),
+            weight: weight
+        };
+
+        const updatedWeightHistory = [
+            ...userData.weightHistory,
+            newEntry
+        ].slice(-10);
+
         updateData({
             ...userData,
             weight: weight,
             height: height,
             currentBMI: bmi,
+            weightHistory: updatedWeightHistory
         });
     }
 }
@@ -1240,7 +1239,6 @@ function saveProfile() {
     });
 }
 
-// Render App
 function render() {
     const app = document.getElementById('app');
     
@@ -1287,14 +1285,13 @@ function render() {
         </div>
     `;
     
-    // Initialize charts after render
     setTimeout(() => {
         initializeCharts();
     }, 100);
 }
 
 function initializeCharts() {
-    // Dashboard Weight Chart
+
     if (document.getElementById('dashboard-weight-chart')) {
         createChart('dashboard-weight-chart', 'line', {
             labels: userData.weightHistory.map(d => d.date),
@@ -1320,7 +1317,6 @@ function initializeCharts() {
         });
     }
     
-    // Progress Tracker Charts
     if (document.getElementById('progress-weight-chart')) {
         createChart('progress-weight-chart', 'line', {
             labels: userData.weightHistory.map(d => d.date),
@@ -1388,5 +1384,4 @@ function initializeCharts() {
     }
 }
 
-// Initial Render
 render();
