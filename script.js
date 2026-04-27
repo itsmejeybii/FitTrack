@@ -1,4 +1,3 @@
-
 const AppData = {
     init() {
         const saved = localStorage.getItem('fitnessData');
