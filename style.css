@@ -15,6 +15,7 @@ body {
     display: none !important;
 }
 
+/* Login Page */
 .login-container {
     min-height: 100vh;
     background-color: #000000;
@@ -103,12 +104,14 @@ body {
     background-color: #e5e5e5;
 }
 
+/* Main Layout */
 .main-layout {
     display: flex;
     height: 100vh;
     background-color: #000000;
 }
 
+/* Sidebar */
 .sidebar {
     width: 16rem;
     background-color: #18181b;
@@ -214,6 +217,7 @@ body {
     line-height: 1.5;
 }
 
+/* Main Content */
 .main-content {
     flex: 1;
     overflow-y: auto;
@@ -235,6 +239,7 @@ body {
     color: #9ca3af;
 }
 
+/* Grid Layouts */
 .grid {
     display: grid;
     gap: 1.5rem;
@@ -253,6 +258,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
+/* Card */
 .card {
     background-color: #18181b;
     border-radius: 0.5rem;
@@ -302,6 +308,7 @@ body {
     color: #9ca3af;
 }
 
+/* Progress Bar */
 .progress-bar {
     background-color: #27272a;
     border-radius: 9999px;
@@ -320,6 +327,7 @@ body {
 .progress-blue { background-color: #3b82f6; }
 .progress-green { background-color: #22c55e; }
 
+/* Buttons */
 .btn {
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
@@ -374,6 +382,7 @@ body {
     width: 100%;
 }
 
+/* List Items */
 .list-item {
     display: flex;
     justify-content: space-between;
@@ -423,6 +432,7 @@ body {
     background-color: rgba(239, 68, 68, 0.2);
 }
 
+/* Chart Container */
 .chart-container {
     position: relative;
     height: 200px;
@@ -433,6 +443,7 @@ body {
     height: 300px;
 }
 
+/* Water Tracker */
 .water-display {
     text-align: center;
     margin-bottom: 2rem;
@@ -476,6 +487,7 @@ body {
     margin-bottom: 1.5rem;
 }
 
+/* BMI Categories */
 .bmi-categories {
     margin-bottom: 1.5rem;
 }
@@ -523,6 +535,7 @@ body {
     margin-bottom: 0.5rem;
 }
 
+/* Tips */
 .tips-list {
     display: flex;
     flex-direction: column;
@@ -558,6 +571,7 @@ body {
     line-height: 1.5;
 }
 
+/* Empty State */
 .empty-state {
     text-align: center;
     padding: 3rem 1rem;
@@ -579,6 +593,7 @@ body {
     font-size: 0.875rem;
 }
 
+/* Profile */
 .profile-info {
     display: flex;
     align-items: center;
@@ -614,6 +629,7 @@ body {
     margin-bottom: 1.5rem;
 }
 
+/* Goals */
 .goal-item {
     display: flex;
     justify-content: space-between;
@@ -686,6 +702,7 @@ body {
     color: #10b981;
 }
 
+/* Settings */
 .settings-section {
     background-color: #18181b;
     border: 1px solid #27272a;
@@ -729,6 +746,7 @@ body {
     color: #ffffff;
 }
 
+/* Stats Grid */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -758,6 +776,7 @@ body {
     color: #ffffff;
 }
 
+/* Utility Classes */
 .mb-2 {
     margin-bottom: 1rem;
 }
@@ -851,6 +870,7 @@ input[type="date"]:focus {
     border-color: #ffffff;
 }
 
+/* Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
