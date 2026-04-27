@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness Tracker App</title>
+    <title>FitTrack Pro - Fitness Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,13 +11,22 @@
 <!-- LOGIN -->
 <div id="loginPage" class="login-container">
     <div class="login-box">
-        <h1>Fitness Tracker</h1>
-        <p>Track your health journey</p>
+        <div class="login-icon">💪</div>
+        <h1>FitTrack Pro</h1>
+        <p class="subtitle">Track your fitness journey</p>
 
         <form id="loginForm">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">Login</button>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="username" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" required>
+            </div>
+
+            <button type="submit" class="btn-primary">Login</button>
         </form>
     </div>
 </div>
@@ -27,46 +36,159 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
-        <button data-page="dashboard">Dashboard</button>
-        <button data-page="food">Food</button>
-        <button data-page="workout">Workout</button>
-        <button data-page="goals">Goals</button>
-        <button data-page="water">Water</button>
-        <button onclick="logout()">Logout</button>
+        <div class="sidebar-header">
+            <div class="logo-icon">💪</div>
+            <span class="logo-text">FitTrack Pro</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <button class="nav-item active" data-page="dashboard">🏠 Dashboard</button>
+            <button class="nav-item" data-page="calorie-tracker">🍽️ Calorie Tracker</button>
+            <button class="nav-item" data-page="workout-planner">🏋️ Workout Planner</button>
+            <button class="nav-item" data-page="bmi-calculator">🧮 BMI Calculator</button>
+            <button class="nav-item" data-page="progress-tracker">📈 Progress Tracker</button>
+            <button class="nav-item" data-page="goals">🎯 Goals</button>
+            <button class="nav-item" data-page="water-tracker">💧 Water Tracker</button>
+            <button class="nav-item" data-page="profile">👤 Profile</button>
+            <button class="nav-item" data-page="settings">⚙️ Settings</button>
+        </nav>
     </aside>
 
-    <!-- CONTENT -->
-    <main class="content">
+    <!-- MAIN -->
+    <main class="main-content">
 
-        <section id="dashboard" class="page active">
-            <h1>Dashboard</h1>
-            <div id="weightProgress">No data yet</div>
-        </section>
+    <!-- DASHBOARD (ALL ZERO) -->
+    <div id="dashboard" class="page active">
+        <h1>Dashboard</h1>
 
-        <section id="food" class="page">
-            <h1>Food</h1>
-            <button onclick="addFoodPrompt()">Add Food</button>
-            <div id="foodList"></div>
-        </section>
+        <div class="dashboard-grid">
 
-        <section id="workout" class="page">
-            <h1>Workout</h1>
-            <button onclick="addWorkoutPrompt()">Add Workout</button>
-            <div id="workoutList"></div>
-        </section>
+            <div class="card">
+                <h3>Daily Calories</h3>
+                <div class="card-value">0 / 2200</div>
+            </div>
 
-        <section id="goals" class="page">
-            <h1>Goals</h1>
-            <button onclick="addGoalPrompt()">Add Goal</button>
-            <div id="goalsList"></div>
-        </section>
+            <div class="card">
+                <h3>Workouts</h3>
+                <div class="card-value">0 / 6</div>
+            </div>
 
-        <section id="water" class="page">
-            <h1>Water Tracker</h1>
-            <button onclick="addWater()">+ Water</button>
-            <button onclick="removeWater()">- Water</button>
-            <div id="waterCount">0 / 8</div>
-        </section>
+            <div class="card">
+                <h3>BMI</h3>
+                <div class="card-value">0</div>
+            </div>
+
+            <div class="card">
+                <h3>Weight</h3>
+                <div class="card-value">0 kg</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CALORIE TRACKER -->
+    <div id="calorie-tracker" class="page">
+        <h1>Calorie Tracker</h1>
+
+        <div class="card">
+            <h3>Add Food</h3>
+
+            <select id="mealSelect">
+                <option>Breakfast</option>
+                <option>Lunch</option>
+                <option>Dinner</option>
+                <option>Snack</option>
+            </select>
+
+            <div>
+                <button onclick="showManualInput()">Manual Input</button>
+                <button onclick="showFoodList()">Choose Food</button>
+            </div>
+
+            <div id="manualInputForm" class="hidden">
+                <input type="text" id="foodName" placeholder="Food name">
+                <input type="number" id="foodCalories" placeholder="Calories">
+                <button onclick="addFood()">Add</button>
+            </div>
+
+            <div id="foodListContainer" class="hidden">
+                <div id="foodList"></div>
+            </div>
+
+        </div>
+
+        <div id="foodLogContainer"></div>
+    </div>
+
+    <!-- WORKOUT (EMPTY START) -->
+    <div id="workout-planner" class="page">
+        <h1>Workout Planner</h1>
+
+        <div class="card">
+            <h3>Total Workouts</h3>
+            <div class="card-value">0</div>
+        </div>
+
+        <div id="workoutList"></div>
+    </div>
+
+    <!-- BMI -->
+    <div id="bmi-calculator" class="page">
+        <h1>BMI Calculator</h1>
+
+        <input id="bmiWeight" placeholder="Weight">
+        <input id="bmiHeight" placeholder="Height">
+
+        <button onclick="calculateBMI()">Calculate</button>
+
+        <div>
+            <h2 id="bmiValue">0</h2>
+            <p id="bmiCategory">Not calculated</p>
+        </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div id="progress-tracker" class="page">
+        <h1>Progress Tracker</h1>
+
+        <div class="card">
+            <h3>Weight Progress</h3>
+            <canvas id="progressWeightChart"></canvas>
+        </div>
+    </div>
+
+    <!-- GOALS -->
+    <div id="goals" class="page">
+        <h1>Goals</h1>
+
+        <div id="goalsList"></div>
+    </div>
+
+    <!-- WATER -->
+    <div id="water-tracker" class="page">
+        <h1>Water Tracker</h1>
+
+        <div id="waterCount">0 / 8</div>
+
+        <button onclick="addWater()">Add Water</button>
+        <button onclick="removeWater()">Remove</button>
+
+        <div id="waterGlasses"></div>
+    </div>
+
+    <!-- PROFILE -->
+    <div id="profile" class="page">
+        <h1>Profile</h1>
+        <input placeholder="Name">
+        <input placeholder="Email">
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="settings" class="page">
+        <h1>Settings</h1>
+        <button onclick="resetData()">Reset Data</button>
+        <button onclick="logout()">Logout</button>
+    </div>
 
     </main>
 </div>
