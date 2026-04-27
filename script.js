@@ -1289,14 +1289,39 @@ function render() {
     }, 100);
 }
 
+function getWeeklyAverageWeight() {
+    const weeks = {};
+
+    userData.weightHistory.forEach(entry => {
+        const date = new Date(entry.date);
+        
+        const week = `Week ${Math.ceil(date.getDate() / 7)}`;
+
+        if (!weeks[week]) {
+            weeks[week] = { total: 0, count: 0 };
+        }
+
+        weeks[week].total += entry.weight;
+        weeks[week].count += 1;
+    });
+
+    const labels = Object.keys(weeks);
+    const data = labels.map(week => {
+        const w = weeks[week];
+        return (w.total / w.count).toFixed(1);
+    });
+
+    return { labels, data };
+}
+
 function initializeCharts() {
 
     if (document.getElementById('dashboard-weight-chart')) {
         createChart('dashboard-weight-chart', 'line', {
             labels: userData.weightHistory.map(d => d.date),
             datasets: [{
-                label: 'Weight (kg)',
-                data: userData.weightHistory.map(d => d.weight),
+                label: 'Average Weight (kg)',
+                data: weekly.data,
                 borderColor: '#a855f7',
                 backgroundColor: 'rgba(168, 85, 247, 0.1)',
                 tension: 0.4,
@@ -1320,11 +1345,11 @@ function initializeCharts() {
         createChart('progress-weight-chart', 'line', {
             labels: userData.weightHistory.map(d => d.date),
             datasets: [{
-                label: 'Weight (kg)',
-                data: userData.weightHistory.map(d => d.weight),
-                borderColor: '#a855f7',
-                backgroundColor: 'rgba(168, 85, 247, 0.1)',
-                tension: 0.4,
+                 label: 'Average Weight (kg)',
+                 data: weekly.data,
+                 borderColor: '#a855f7',
+                 backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                 tension: 0.4,
             }]
         }, {
             scales: {
