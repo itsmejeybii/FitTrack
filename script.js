@@ -1,3 +1,4 @@
+
 const AppData = {
     init() {
         const saved = localStorage.getItem('fitnessData');
@@ -163,7 +164,7 @@ function createChart(canvasId, type, data, options) {
 }
 
 function renderLogin() {
-    return `
+    return 
         <div class="login-container">
             <div class="login-content">
                 <div class="login-header">
@@ -198,7 +199,7 @@ function renderLogin() {
                 </div>
             </div>
         </div>
-    `;
+    ;
 }
 
 function renderSidebar() {
@@ -216,7 +217,7 @@ function renderSidebar() {
     
     const randomQuote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
     
-    return `
+    return 
         <div class="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo">
@@ -228,7 +229,7 @@ function renderSidebar() {
                 </div>
             </div>
             <nav class="sidebar-nav">
-                ${menuItems.map(item => `
+                ${menuItems.map(item => 
                     <button
                         class="nav-item ${currentPage === item.id ? 'active' : ''}"
                         onclick="navigateTo('${item.id}')"
@@ -236,7 +237,7 @@ function renderSidebar() {
                         <span class="nav-icon">${item.icon}</span>
                         <span>${item.label}</span>
                     </button>
-                `).join('')}
+                ).join('')}
             </nav>
             <div class="sidebar-footer">
                 <div class="motivation-box">
@@ -250,13 +251,13 @@ function renderSidebar() {
                 </div>
             </div>
         </div>
-    `;
+    ;
 }
 
 function renderDashboard() {
     const bmiCategory = getBMICategory(userData.currentBMI);
     
-    return `
+    return 
         <div class="main-content">
             <div class="max-w-7xl">
                 <div class="content-header">
@@ -314,19 +315,19 @@ function renderDashboard() {
                             </div>
                             <button onclick="navigateTo('calorie-tracker')" class="btn btn-white">View All</button>
                         </div>
-                        ${userData.recentFoods.length > 0 ? `
-                            ${userData.recentFoods.slice(0, 3).map(food => `
+                        ${userData.recentFoods.length > 0 ? 
+                            ${userData.recentFoods.slice(0, 3).map(food => 
                                 <div class="list-item">
                                     <span class="list-item-title">${food.name}</span>
                                     <span style="color: #fff;">${food.calories} kcal</span>
                                 </div>
-                            `).join('')}
-                        ` : `
+                            ).join('')}
+                         : 
                             <div class="empty-state">
                                 <div class="empty-icon">🔍</div>
                                 <p class="empty-state-title">No food entries yet</p>
                             </div>
-                        `}
+                        }
                     </div>
 
                     <div class="card">
@@ -337,19 +338,19 @@ function renderDashboard() {
                             </div>
                             <button onclick="navigateTo('workout-planner')" class="btn btn-white">View All</button>
                         </div>
-                        ${userData.recentWorkouts.length > 0 ? `
-                            ${userData.recentWorkouts.slice(0, 3).map(workout => `
+                        ${userData.recentWorkouts.length > 0 ? 
+                            ${userData.recentWorkouts.slice(0, 3).map(workout => 
                                 <div class="list-item">
                                     <span class="list-item-title">${workout.name}</span>
                                     <span style="color: #fff;">${workout.calories} kcal</span>
                                 </div>
-                            `).join('')}
-                        ` : `
+                            ).join('')}
+                         : 
                             <div class="empty-state">
                                 <div class="empty-icon">💪</div>
                                 <p class="empty-state-title">No workout entries yet</p>
                             </div>
-                        `}
+                        }
                     </div>
                 </div>
 
@@ -394,14 +395,14 @@ function renderDashboard() {
                             <h3 class="card-title">Quick Tips</h3>
                         </div>
                         <div class="tips-list">
-                            ${tips.map(tip => `
+                            ${tips.map(tip => 
                                 <div class="tip-item">
                                     <div class="tip-bullet">
                                         <div class="tip-bullet-dot"></div>
                                     </div>
                                     <p class="tip-text">${tip}</p>
                                 </div>
-                            `).join('')}
+                            ).join('')}
                         </div>
                     </div>
 
@@ -416,9 +417,9 @@ function renderDashboard() {
                             <p class="card-label">glasses today</p>
                         </div>
                         <div class="water-glasses">
-                            ${Array.from({ length: userData.waterGoal }).map((_, i) => `
+                            ${Array.from({ length: userData.waterGoal }).map((_, i) => 
                                 <div class="water-glass ${i < userData.waterGlasses ? 'filled' : 'empty'}"></div>
-                            `).join('')}
+                            ).join('')}
                         </div>
                         <div style="display: flex; gap: 0.75rem;">
                             <button onclick="addWaterGlass()" class="btn btn-blue flex-1">➕ Add Glass</button>
@@ -428,13 +429,13 @@ function renderDashboard() {
                 </div>
             </div>
         </div>
-    `;
+    ;
 }
 
 function renderCalorieTracker() {
     const totalCalories = userData.recentFoods.reduce((sum, food) => sum + food.calories, 0);
     
-    return `
+    return 
         <div class="main-content">
             <div class="max-w-4xl">
                 <div class="content-header">
@@ -478,9 +479,9 @@ function renderCalorieTracker() {
                             <label class="form-label">Choose Food</label>
                             <select id="quick-food">
                                 <option value="">Select a food</option>
-                                ${commonFoods.map(food => `
+                                ${commonFoods.map(food => 
                                     <option value="${food.name}|${food.calories}">${food.name} - ${food.calories} kcal</option>
-                                `).join('')}
+                                ).join('')}
                             </select>
                         </div>
                         <button onclick="addQuickFood()" class="btn btn-white btn-full">➕ Add Selected Food</button>
@@ -489,8 +490,8 @@ function renderCalorieTracker() {
 
                 <div class="card">
                     <h3 class="card-title mb-2">Food History</h3>
-                    ${userData.recentFoods.length > 0 ? `
-                        ${userData.recentFoods.map((food, index) => `
+                    ${userData.recentFoods.length > 0 ? 
+                        ${userData.recentFoods.map((food, index) => 
                             <div class="list-item">
                                 <div>
                                     <p class="list-item-title">${food.name}</p>
@@ -501,24 +502,24 @@ function renderCalorieTracker() {
                                     <button onclick="deleteFood(${index})" class="icon-btn icon-btn-red">🗑️</button>
                                 </div>
                             </div>
-                        `).join('')}
-                    ` : `
+                        ).join('')}
+                     : 
                         <div class="empty-state">
                             <div class="empty-icon">🔍</div>
                             <p class="empty-state-title">No food entries yet</p>
                             <p class="empty-state-subtitle">Start tracking your calories above</p>
                         </div>
-                    `}
+                    }
                 </div>
             </div>
         </div>
-    `;
+    ;
 }
 
 function renderWorkoutPlanner() {
     const totalCaloriesBurned = userData.recentWorkouts.reduce((sum, workout) => sum + workout.calories, 0);
     
-    return `
+    return 
         <div class="main-content">
             <div class="max-w-4xl">
                 <div class="content-header">
@@ -563,9 +564,9 @@ function renderWorkoutPlanner() {
                             <label class="form-label">Choose Workout</label>
                             <select id="quick-workout">
                                 <option value="">Select a workout</option>
-                                ${commonWorkouts.map(workout => `
+                                ${commonWorkouts.map(workout => 
                                     <option value="${workout.name}|${workout.calories}">${workout.name} - ${workout.calories} kcal</option>
-                                `).join('')}
+                                ).join('')}
                             </select>
                         </div>
                         <button onclick="addQuickWorkout()" class="btn btn-white btn-full">➕ Add Selected Workout</button>
@@ -574,8 +575,8 @@ function renderWorkoutPlanner() {
 
                 <div class="card">
                     <h3 class="card-title mb-2">Workout History</h3>
-                    ${userData.recentWorkouts.length > 0 ? `
-                        ${userData.recentWorkouts.map((workout, index) => `
+                    ${userData.recentWorkouts.length > 0 ? 
+                        ${userData.recentWorkouts.map((workout, index) => 
                             <div class="list-item">
                                 <div class="list-item-content">
                                     <div class="card-icon icon-blue" style="padding: 0.5rem; font-size: 1.25rem;">💪</div>
@@ -589,18 +590,18 @@ function renderWorkoutPlanner() {
                                     <button onclick="deleteWorkout(${index})" class="icon-btn icon-btn-red">🗑️</button>
                                 </div>
                             </div>
-                        `).join('')}
-                    ` : `
+                        ).join('')}
+                     : 
                         <div class="empty-state">
                             <div class="empty-icon">💪</div>
                             <p class="empty-state-title">No workouts yet</p>
                             <p class="empty-state-subtitle">Start tracking your workouts above</p>
                         </div>
-                    `}
+                    }
                 </div>
             </div>
         </div>
-    `;
+    ;
 }
 
 function renderBMICalculator() {
@@ -612,7 +613,7 @@ function renderBMICalculator() {
         { category: 'Obese', range: '≥ 30', color: '#f87171', min: 30, max: 50 },
     ];
     
-    return `
+    return 
         <div class="main-content">
             <div class="max-w-4xl">
                 <div class="content-header">
@@ -652,7 +653,7 @@ function renderBMICalculator() {
                         <div class="bmi-categories">
                             ${bmiRanges.map(range => {
                                 const isActive = bmiInfo.category === range.category;
-                                return `
+                                return 
                                     <div class="bmi-category">
                                         <div class="bmi-category-header">
                                             <span style="color: #fff;">${range.category}</span>
@@ -662,7 +663,7 @@ function renderBMICalculator() {
                                             <div class="bmi-bar-fill" style="width: 100%; background-color: ${range.color}; opacity: ${isActive ? 1 : 0.3};"></div>
                                         </div>
                                     </div>
-                                `;
+                                ;
                             }).join('')}
                         </div>
                         
@@ -678,7 +679,7 @@ function renderBMICalculator() {
                 </div>
             </div>
         </div>
-    `;
+    ;
 }
 
 function renderProgressTracker() {
@@ -692,7 +693,7 @@ function renderProgressTracker() {
         { id: 'sun', date: 'Sun', consumed: 2000, burned: 300 },
     ];
     
-    return `
+    return 
         <div class="main-content">
             <div class="max-w-7xl">
                 <div class="content-header">
@@ -736,14 +737,14 @@ function renderProgressTracker() {
                 </div>
             </div>
         </div>
-    `;
+    ;
 }
 
 function renderGoals() {
     const activeGoals = (userData.goals || []).filter(goal => !goal.completed);
     const completedGoals = (userData.goals || []).filter(goal => goal.completed);
     
-    return `
+    return 
         <div class="main-content">
             <div class="max-w-4xl">
                 <div class="content-header">
@@ -772,8 +773,8 @@ function renderGoals() {
                         <h3 class="card-title">Active Goals</h3>
                         <span class="badge badge-blue">${activeGoals.length}</span>
                     </div>
-                    ${activeGoals.length > 0 ? `
-                        ${activeGoals.map((goal, index) => `
+                    ${activeGoals.length > 0 ? 
+                        ${activeGoals.map((goal, index) => 
                             <div class="goal-item">
                                 <div class="goal-content">
                                     <button onclick="toggleGoal(${userData.goals.indexOf(goal)})" class="goal-checkbox"></button>
@@ -784,14 +785,14 @@ function renderGoals() {
                                 </div>
                                 <button onclick="deleteGoal(${userData.goals.indexOf(goal)})" class="icon-btn icon-btn-red">🗑️</button>
                             </div>
-                        `).join('')}
-                    ` : `
+                        ).join('')}
+                     : 
                         <div class="empty-state">
                             <div class="empty-icon">🎯</div>
                             <p class="empty-state-title">No active goals</p>
                             <p class="empty-state-subtitle">Set a goal to get started</p>
                         </div>
-                    `}
+                    }
                 </div>
 
                 <div class="card">
@@ -800,8 +801,8 @@ function renderGoals() {
                         <h3 class="card-title">Completed Goals</h3>
                         <span class="badge badge-green">${completedGoals.length}</span>
                     </div>
-                    ${completedGoals.length > 0 ? `
-                        ${completedGoals.map((goal, index) => `
+                    ${completedGoals.length > 0 ? 
+                        ${completedGoals.map((goal, index) => 
                             <div class="goal-item goal-completed">
                                 <div class="goal-content">
                                     <button onclick="toggleGoal(${userData.goals.indexOf(goal)})" class="goal-checkbox checked">✓</button>
@@ -812,23 +813,23 @@ function renderGoals() {
                                 </div>
                                 <button onclick="deleteGoal(${userData.goals.indexOf(goal)})" class="icon-btn icon-btn-red">🗑️</button>
                             </div>
-                        `).join('')}
-                    ` : `
+                        ).join('')}
+                     : 
                         <div class="empty-state">
                             <div class="empty-icon">✅</div>
                             <p class="empty-state-title">No completed goals yet</p>
                         </div>
-                    `}
+                    }
                 </div>
             </div>
         </div>
-    `;
+    ;
 }
 
 function renderWaterTracker() {
     const percentage = Math.min((userData.waterGlasses / userData.waterGoal) * 100, 100);
     
-    return `
+    return 
         <div class="main-content">
             <div class="max-w-2xl">
                 <div class="content-header">
@@ -859,9 +860,9 @@ function renderWaterTracker() {
                     </div>
 
                     <div class="water-glasses">
-                        ${Array.from({ length: userData.waterGoal }).map((_, i) => `
+                        ${Array.from({ length: userData.waterGoal }).map((_, i) => 
                             <div class="water-glass ${i < userData.waterGlasses ? 'filled' : 'empty'}"></div>
-                        `).join('')}
+                        ).join('')}
                     </div>
                 </div>
 
@@ -892,23 +893,23 @@ function renderWaterTracker() {
                             'Prevents headaches',
                             'Aids digestion',
                             'Maintains healthy skin',
-                        ].map(benefit => `
+                        ].map(benefit => 
                             <div class="tip-item">
                                 <div class="tip-bullet">
                                     <div class="tip-bullet-dot"></div>
                                 </div>
                                 <p class="tip-text">${benefit}</p>
                             </div>
-                        `).join('')}
+                        ).join('')}
                     </div>
                 </div>
             </div>
         </div>
-    `;
+    ;
 }
 
 function renderProfile() {
-    return `
+    return 
         <div class="main-content">
             <div class="max-w-4xl">
                 <div class="content-header">
@@ -980,11 +981,11 @@ function renderProfile() {
                 </div>
             </div>
         </div>
-    `;
+    ;
 }
 
 function renderSettings() {
-    return `
+    return 
         <div class="main-content">
             <div class="max-w-2xl">
                 <div class="content-header">
@@ -1030,7 +1031,7 @@ function renderSettings() {
                 </div>
             </div>
         </div>
-    `;
+    ;
 }
 
 function addManualFood() {
@@ -1131,25 +1132,13 @@ function calculateBMI() {
     if (weight > 0 && height > 0) {
         const heightInMeters = height / 100;
         const bmi = weight / (heightInMeters * heightInMeters);
-
-       const newEntry = {
-           id: Date.now(),
-           date: new Date().toISOString(),
-           weight: weight
-};
-
-       const updatedWeightHistory = [
-            ...userData.weightHistory,
-              newEntry
-            ].slice(-10);
-
+        
         updateData({
             ...userData,
             weight: weight,
             height: height,
             currentBMI: bmi,
-            weightHistory: updatedWeightHistory
-    });
+        });
     }
 }
 
@@ -1277,51 +1266,24 @@ function render() {
             break;
     }
     
-    app.innerHTML = `
+    app.innerHTML = 
         <div class="main-layout">
             ${renderSidebar()}
             ${content}
         </div>
-    `;
-    
+    ;
     setTimeout(() => {
         initializeCharts();
     }, 100);
 }
 
-function getWeeklyAverageWeight() {
-    const weeks = {};
-
-    userData.weightHistory.forEach(entry => {
-        const date = new Date(entry.date);
-        
-        const week = `Week ${Math.ceil(date.getDate() / 7)}`;
-
-        if (!weeks[week]) {
-            weeks[week] = { total: 0, count: 0 };
-        }
-
-        weeks[week].total += entry.weight;
-        weeks[week].count += 1;
-    });
-
-    const labels = Object.keys(weeks);
-    const data = labels.map(week => {
-        const w = weeks[week];
-        return (w.total / w.count).toFixed(1);
-    });
-
-    return { labels, data };
-}
-
 function initializeCharts() {
-
     if (document.getElementById('dashboard-weight-chart')) {
         createChart('dashboard-weight-chart', 'line', {
             labels: userData.weightHistory.map(d => d.date),
             datasets: [{
-                label: 'Average Weight (kg)',
-                data: weekly.data,
+                label: 'Weight (kg)',
+                data: userData.weightHistory.map(d => d.weight),
                 borderColor: '#a855f7',
                 backgroundColor: 'rgba(168, 85, 247, 0.1)',
                 tension: 0.4,
@@ -1345,11 +1307,11 @@ function initializeCharts() {
         createChart('progress-weight-chart', 'line', {
             labels: userData.weightHistory.map(d => d.date),
             datasets: [{
-                 label: 'Average Weight (kg)',
-                 data: weekly.data,
-                 borderColor: '#a855f7',
-                 backgroundColor: 'rgba(168, 85, 247, 0.1)',
-                 tension: 0.4,
+                label: 'Weight (kg)',
+                data: userData.weightHistory.map(d => d.weight),
+                borderColor: '#a855f7',
+                backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                tension: 0.4,
             }]
         }, {
             scales: {
