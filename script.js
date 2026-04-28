@@ -17,12 +17,7 @@ const AppData = {
             height: 0,
             recentFoods: [],
             recentWorkouts: [],
-            weightHistory: [
-                { id: 'w1', date: 'Week 1', weight: 0 },
-                { id: 'w2', date: 'Week 2', weight: 0 },
-                { id: 'w3', date: 'Week 3', weight: 0 },
-                { id: 'w4', date: 'Week 4', weight: 0 },
-            ],
+            weightHistory: [],
             goals: [],
             waterGlasses: 0,
             waterGoal: 8,
@@ -394,7 +389,7 @@ function renderDashboard() {
                             <span style="font-size: 1.5rem;">📈</span>
                             <h3 class="card-title">Weight Progress</h3>
                         </div>
-                        <div class="chart-container">
+                        <div class="chart-container" id="dashboard-weight-container">
                             <canvas id="dashboard-weight-chart"></canvas>
                         </div>
                     </div>
@@ -736,7 +731,7 @@ function renderProgressTracker() {
                         <span style="font-size: 1.5rem;">📈</span>
                         <h3 class="card-title">Weight Progress</h3>
                     </div>
-                    <div class="chart-container-large">
+                    <div class="chart-container-large" id="progress-weight-container">
                         <canvas id="progress-weight-chart"></canvas>
                     </div>
                 </div>
@@ -1146,11 +1141,24 @@ function calculateBMI() {
         const heightInMeters = height / 100;
         const bmi = weight / (heightInMeters * heightInMeters);
         
+        // Add weight entry to history
+        const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        const newWeightEntry = {
+            id: `w-${Date.now()}`,
+            date: today,
+            weight: weight,
+            timestamp: new Date().toISOString(),
+        };
+        
+        // Keep only last 30 entries
+        const updatedHistory = [newWeightEntry, ...userData.weightHistory].slice(0, 30);
+        
         updateData({
             ...userData,
             weight: weight,
             height: height,
             currentBMI: bmi,
+            weightHistory: updatedHistory,
         });
     }
 }
@@ -1295,55 +1303,95 @@ function render() {
 
 function initializeCharts() {
     // Dashboard Weight Chart
-    if (document.getElementById('dashboard-weight-chart')) {
-        createChart('dashboard-weight-chart', 'line', {
-            labels: userData.weightHistory.map(d => d.date),
-            datasets: [{
-                label: 'Weight (kg)',
-                data: userData.weightHistory.map(d => d.weight),
-                borderColor: '#a855f7',
-                backgroundColor: 'rgba(168, 85, 247, 0.1)',
-                tension: 0.4,
-            }]
-        }, {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: { color: '#27272a' },
-                    ticks: { color: '#71717a' }
-                },
-                x: {
-                    grid: { color: '#27272a' },
-                    ticks: { color: '#71717a' }
+    const dashboardContainer = document.getElementById('dashboard-weight-container');
+    if (dashboardContainer) {
+        if (userData.weightHistory.length > 0) {
+            // Sort by timestamp and take last 10 entries
+            const sortedData = userData.weightHistory
+                .slice()
+                .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
+                .slice(-10);
+            
+            dashboardContainer.innerHTML = '<canvas id="dashboard-weight-chart"></canvas>';
+            createChart('dashboard-weight-chart', 'line', {
+                labels: sortedData.map(d => d.date),
+                datasets: [{
+                    label: 'Weight (kg)',
+                    data: sortedData.map(d => d.weight),
+                    borderColor: '#a855f7',
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                }]
+            }, {
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: { color: '#27272a' },
+                        ticks: { color: '#71717a' }
+                    },
+                    x: {
+                        grid: { color: '#27272a' },
+                        ticks: { color: '#71717a' }
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            dashboardContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">📈</div>
+                    <p class="empty-state-title">No weight data yet</p>
+                    <p class="empty-state-subtitle">Use BMI Calculator to track your weight</p>
+                </div>
+            `;
+        }
     }
     
     // Progress Tracker Charts
-    if (document.getElementById('progress-weight-chart')) {
-        createChart('progress-weight-chart', 'line', {
-            labels: userData.weightHistory.map(d => d.date),
-            datasets: [{
-                label: 'Weight (kg)',
-                data: userData.weightHistory.map(d => d.weight),
-                borderColor: '#a855f7',
-                backgroundColor: 'rgba(168, 85, 247, 0.1)',
-                tension: 0.4,
-            }]
-        }, {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: { color: '#27272a' },
-                    ticks: { color: '#71717a' }
-                },
-                x: {
-                    grid: { color: '#27272a' },
-                    ticks: { color: '#71717a' }
+    const progressContainer = document.getElementById('progress-weight-container');
+    if (progressContainer) {
+        if (userData.weightHistory.length > 0) {
+            // Sort by timestamp and take last 30 entries
+            const sortedData = userData.weightHistory
+                .slice()
+                .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
+                .slice(-30);
+            
+            progressContainer.innerHTML = '<canvas id="progress-weight-chart"></canvas>';
+            createChart('progress-weight-chart', 'line', {
+                labels: sortedData.map(d => d.date),
+                datasets: [{
+                    label: 'Weight (kg)',
+                    data: sortedData.map(d => d.weight),
+                    borderColor: '#a855f7',
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                }]
+            }, {
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: { color: '#27272a' },
+                        ticks: { color: '#71717a' }
+                    },
+                    x: {
+                        grid: { color: '#27272a' },
+                        ticks: { color: '#71717a' }
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            progressContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">📈</div>
+                    <p class="empty-state-title">No weight data yet</p>
+                    <p class="empty-state-subtitle">Use BMI Calculator to track your weight</p>
+                </div>
+            `;
+        }
     }
     
     if (document.getElementById('progress-calorie-chart')) {
